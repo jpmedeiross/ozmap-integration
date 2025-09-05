@@ -5,6 +5,7 @@ import { Box } from "../models/Box";
 import { Cable } from "../models/Cable";
 import { DropCable } from "../models/DropCable";
 import { Customer } from "../models/Customer";
+import { transformAndSendToOzmap } from "../services/ozmapService";
 
 async function fetchIspData() {
   try {
@@ -35,6 +36,11 @@ async function fetchIspData() {
     );
 
     logger.info("Dados do ISP salvos no MongoDB com sucesso");
+
+    if (data) {
+      await transformAndSendToOzmap(data);
+      logger.info("Transformação e envio para OZmap concluídos");
+    }
 
     return data;
   } catch (error: any) {
