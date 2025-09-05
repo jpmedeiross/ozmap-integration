@@ -21,11 +21,11 @@ async function startServer() {
 
 async function runIspJob() {
   try {
-    logger.info("Iniciando job de sincronização do ISP...");
+    logger.info("Iniciando job de sincronizacao do ISP...");
     await fetchIspData();
   } catch (error: any) {
     logger.error(
-      "Erro no job de sincronização do ISP:",
+      "Erro no job de sincronizacao do ISP:",
       error.message || error
     );
   }

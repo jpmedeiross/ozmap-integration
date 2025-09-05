@@ -69,5 +69,5 @@ export async function transformAndSendToOzmap(data: any) {
   await sendToOzmap("DropCables", data.drop_cables);
   await sendToOzmap("Clientes", data.customers);
 
-  logger.info("Transformação e envio para OZmap concluídos");
+  logger.info("Transformacao e envio para OZmap concluidos");
 }

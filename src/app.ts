@@ -5,9 +5,8 @@ const app = express();
 
 app.use(express.json());
 
-// rota de teste
 app.get("/health", (_req, res) => {
-  logger.info("Verificação de saúde OK");
+  logger.info("Verificacao de saude OK");
   res.json({ status: "ok" });
 });
 

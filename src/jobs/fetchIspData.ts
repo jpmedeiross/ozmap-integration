@@ -92,7 +92,7 @@ export async function fetchIspData() {
       await sendWithRateLimit(data.cables, "Cabos");
       await sendWithRateLimit(data.drop_cables, "DropCables");
       await sendWithRateLimit(data.customers, "Clientes");
-      logger.info("Transformação e envio para OZmap concluídos");
+      logger.info("Transformacao e envio para OZmap concluidos");
     }
 
     return data;
