@@ -9,10 +9,25 @@ import { transformAndSendToOzmap } from "../services/ozmapService";
 
 async function fetchIspData() {
   try {
-    const response = await axios.get("http://localhost:4000");
-    const data = response.data;
+    const cablesResponse = await axios.get("http://localhost:4000/cables");
+    const dropCablesResponse = await axios.get(
+      "http://localhost:4000/drop_cables"
+    );
+    const boxesResponse = await axios.get("http://localhost:4000/boxes");
+    const customersResponse = await axios.get(
+      "http://localhost:4000/customers"
+    );
+
+    const data = {
+      cables: cablesResponse.data,
+      drop_cables: dropCablesResponse.data,
+      boxes: boxesResponse.data,
+      customers: customersResponse.data,
+    };
 
     logger.info("Dados do ISP buscados com sucesso");
+
+    console.log("Dados recebidos do ISP:", JSON.stringify(data, null, 2));
 
     await Promise.all(
       data.boxes.map((b: any) =>
