@@ -1,20 +1,34 @@
-import dotenv from "dotenv";
+import "dotenv/config";
 import app from "./app";
 import logger from "./logger";
 import { connectDB } from "./database/connection";
-import { startIspSyncJob } from "./jobs/fetchIspData";
-
-dotenv.config();
+import { fetchIspData } from "./jobs/fetchIspData";
 
 const PORT = process.env.PORT || 3000;
 
-async function bootstrap() {
+async function startServer() {
   await connectDB();
-  startIspSyncJob();
 
   app.listen(PORT, () => {
     logger.info(`Servidor rodando em http://localhost:${PORT}`);
   });
+
+  await runIspJob();
+
+  const INTERVAL = 2 * 60 * 1000;
+  setInterval(runIspJob, INTERVAL);
 }
 
-bootstrap();
+async function runIspJob() {
+  try {
+    logger.info("Iniciando job de sincronização do ISP...");
+    await fetchIspData();
+  } catch (error: any) {
+    logger.error(
+      "Erro no job de sincronização do ISP:",
+      error.message || error
+    );
+  }
+}
+
+startServer();

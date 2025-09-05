@@ -7,7 +7,7 @@ import { DropCable } from "../models/DropCable";
 import { Customer } from "../models/Customer";
 import { transformAndSendToOzmap } from "../services/ozmapService";
 
-async function fetchIspData() {
+export async function fetchIspData() {
   try {
     const cablesResponse = await axios.get("http://localhost:4000/cables");
     const dropCablesResponse = await axios.get(
@@ -26,8 +26,6 @@ async function fetchIspData() {
     };
 
     logger.info("Dados do ISP buscados com sucesso");
-
-    console.log("Dados recebidos do ISP:", JSON.stringify(data, null, 2));
 
     await Promise.all(
       data.boxes.map((b: any) =>
